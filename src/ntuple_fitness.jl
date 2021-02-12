@@ -133,7 +133,7 @@ hat_compare(f1::NTuple{N,F}, f2::NTuple{N,F}, fs::EpsDominanceFitnessScheme{N,F,
         return (typemax(Int), zero(F))
     else
         u_div_ϵ = clamp(u/ϵ, convert(F, typemin(Int)), convert(F, typemax(Int)))
-        ix = floor(Int, u_div_ϵ+10eps(F))
+        ix = convert(Int, min(floor(Int128, u_div_ϵ+10eps(F)), typemax(Int)))
         return (ix, max(zero(F), u_div_ϵ-ix))
     end
 end
